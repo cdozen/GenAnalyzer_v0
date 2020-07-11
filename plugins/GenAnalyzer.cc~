@@ -1,0 +1,226 @@
+// -*- C++ -*-
+//
+// Package:    GenAnalyzer/GenAnalyzer
+// Class:      GenAnalyzer
+//
+/**\class GenAnalyzer GenAnalyzer.cc GenAnalyzer/GenAnalyzer/plugins/GenAnalyzer.cc
+
+ Description: [one line class summary]
+
+ Implementation:
+     [Notes on implementation]
+*/
+//
+// Original Author:  Candan Dozen
+//         Created:  Sat, 11 Jul 2020 11:06:05 GMT
+//
+//
+
+
+// system include files
+#include <memory>
+
+// user include files
+#include <vector>
+#include <iostream>
+#include <string>
+
+#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
+#include <DataFormats/HepMCCandidate/interface/GenParticle.h>
+#include "DataFormats/EgammaCandidates/interface/GsfElectron.h"
+
+#include "DataFormats/EgammaCandidates/interface/Conversion.h"
+#include "DataFormats/VertexReco/interface/Vertex.h"
+#include "DataFormats/VertexReco/interface/VertexFwd.h"
+#include "DataFormats/METReco/interface/PFMETCollection.h"
+
+
+#include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
+#include "DataFormats/Math/interface/LorentzVector.h"
+#include <FWCore/Framework/interface/ESHandle.h>
+
+
+#include "FWCore/Framework/interface/MakerMacros.h"
+
+#include "FWCore/Framework/interface/ESHandle.h"
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
+#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+
+
+
+
+//
+// class declaration
+//
+
+// If the analyzer does not use TFileService, please remove
+// the template argument to the base class so the class inherits
+// from  edm::one::EDAnalyzer<>
+// This will improve performance in multithreaded jobs.
+#include <TH1.h>
+#include <TFile.h>
+#include <TString.h>
+#include <stdio.h>
+#include <TH2F.h>
+#include <TH1F.h>
+#include <TCanvas.h>
+#include <TROOT.h>
+// ************* NTuple ***************************************************
+ #include <TNtuple.h>
+ #include <TTree.h>
+// // ************************************************************************
+#include <TLorentzVector.h>
+#include <TFile.h>
+#include <vector>
+using namespace edm;
+using namespace reco;
+using namespace std;
+
+
+
+//using reco::TrackCollection;
+
+class GenAnalyzer : public edm::EDAnalyzer  {
+   public:
+      explicit GenAnalyzer(const edm::ParameterSet&);
+      ~GenAnalyzer();
+
+      static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
+      void FillTruth(const edm::Event&, const edm::EventSetup&);  
+
+   private:
+      virtual void beginJob() override;
+      virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
+      virtual void endJob() override;
+
+    const edm::ParameterSet&  conf;
+    edm::EDGetTokenT<edm::View<reco::GenParticle> > genParticlesToken_;
+    edm::EDGetTokenT<vector<reco::GenParticle> > genParticleToken_;
+
+};
+
+//
+// constants, enums and typedefs
+//
+
+//
+// static data member definitions
+//
+
+//
+// constructors and destructor
+//
+GenAnalyzer::GenAnalyzer(const edm::ParameterSet& iConfig):
+conf(iConfig)
+{
+
+   //now do what ever initialization is needed
+
+genParticleToken_ = mayConsume<vector<reco::GenParticle>>(iConfig.getParameter<edm::InputTag>("genParticlesAOD"));
+
+
+}
+
+
+GenAnalyzer::~GenAnalyzer()
+{
+ 
+   // do anything here that needs to be done at desctruction time
+   // (e.g. close files, deallocate resources etc.)
+
+}
+
+
+//
+// member functions
+//
+
+// ------------ method called for each event  ------------
+void GenAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+{
+   using namespace edm;
+FillTruth(iEvent, iSetup);
+
+
+}
+
+
+// ------------ method called once each job just before starting event loop  ------------
+void
+GenAnalyzer::beginJob()
+{
+    edm::Service<TFileService> fs ;
+    _mytree  = fs->make <TTree>("gen_tree","gen_tree");
+    
+    Int_t mother_pdgId;
+    Int_t dimuon_pdgId;
+    TLorentzVector gen_dimuon_p4;
+    TLorentzVector gen_mu1_p4;
+    TLorentzVector gen_mu2_p4;
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    return;
+}
+
+// ------------ method called once each job just after ending the event loop  ------------
+void
+GenAnalyzer::endJob()
+{
+    return;
+}
+
+// ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
+void
+GenAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+  //The following says we do not know what parameters are allowed so do no validation
+  // Please change this to state exactly what you do use, even if it is no parameters
+  edm::ParameterSetDescription desc;
+  desc.setUnknown();
+  descriptions.addDefault(desc);
+
+  //Specify that only 'tracks' is allowed
+  //To use, remove the default given above and uncomment below
+  //ParameterSetDescription desc;
+  //desc.addUntracked<edm::InputTag>("tracks","ctfWithMaterialTracks");
+  //descriptions.addDefault(desc);
+}
+
+void GenAnalyzer::FillTruth(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+{
+edm::Handle<vector<reco::GenParticle> > genCandidatesCollection;
+iEvent.getByToken(genParticleToken_, genCandidatesCollection);
+
+    
+// ----------------------------
+//   //      Loop on particles
+//     // ----------------------------
+       for( auto p = genCandidatesCollection->begin();p != genCandidatesCollection->end(); ++ p ) {
+cout << "Status pdgid = " << fabs(p->pdgId()) << " status = "<< p->status()  << " Pt = "<< p->pt() << " Eta = " << p->eta() <<  endl;
+
+}
+
+}
+
+//define this as a plug-in
+DEFINE_FWK_MODULE(GenAnalyzer);
