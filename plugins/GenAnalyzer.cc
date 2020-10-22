@@ -15,7 +15,11 @@
 //         Created:  Sat, 11 Jul 2020 11:06:05 GMT
 //
 //
-
+///////16 ekim// genanalyzer kodunun en son duzgun hali budur candan bunu kullan... saat 00:26.. 
+//ups_daughthersid leri ikili vectore doldur...
+//
+//
+//
 
 // system include files
 #include <memory>
@@ -106,87 +110,100 @@ class GenAnalyzer : public edm::EDAnalyzer  {
 
       static void fillDescriptions(edm::ConfigurationDescriptions & descriptions);
       void FillTruth(const edm::Event&, const edm::EventSetup&);  
-
+      
+      void FillEvent(const edm::Event&, const edm::EventSetup&);
+   
    private:
       virtual void beginJob() override;
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
       virtual void endJob() override;
 
-int GENfinalState;
-                bool passedFiducialSelection;
-                bool verbose=false;
-                //std::vector<double> GENmu_pt; std::vector<double> GENmu_eta; std::vector<double> GENmu_phi; std::vector<double> GENmu_mass; 
+       int GENfinalState;
+        bool passedFiducialSelection;
+        bool verbose=true;
+        //std::vector<double> GENmu_pt; std::vector<double> GENmu_eta; std::vector<double> GENmu_phi; std::vector<double> GENmu_mass; 
 
-std::vector<int>   GEN_Nmother;
-std::vector<int>   GEN_Ndaughter;
-std::vector<int>   GEN_pdgID;
-std::vector< std::vector<int> >   GEN_Daughter_pdgID;
-std::vector< std::vector<int> >   GEN_Mother_pdgID;
-std::vector<double>GEN_pt;
-std::vector<double>GEN_eta;
-std::vector<double>GEN_phi;
-std::vector<double>GEN_rapidity;
-std::vector<double>GEN_mass;
-std::vector<int>   GEN_status;
+    std::vector<int>   GEN_Nmother;
+    std::vector<int>   GEN_Ndaughter;
+    std::vector<int>   GEN_pdgID;
+    std::vector<std::vector<int>>   GEN_Daughter_pdgID;
+    std::vector<std::vector<int>>   GEN_Mother_pdgID;
+    std::vector<double>GEN_pt;
+    std::vector<double>GEN_eta;
+    std::vector<double>GEN_phi;
+    std::vector<double>GEN_rapidity;
+    std::vector<double>GEN_mass;
+    std::vector<int>   GEN_status;
 
-/*std::vector<int>GEN_Mom_barcode;
-std::vector<int>GEN_Mom_ID;
-std::vector<double>GEN_Mom_pt;
-std::vector<double>GEN_Mom_eta;
-std::vector<double>GEN_Mom_phi;
-std::vector<double>GEN_Mom_rapidity;
-std::vector<double>GEN_Mom_mass;
-std::vector<int>GEN_Mom_status;
+    std::vector<std::vector<int>> GEN_Mom_barcode;
+    std::vector<std::vector<int>> GEN_Dau_barcode;
+    std::vector<int> GEN_barcode;
+    /*std::vector<int>GEN_Mom_ID;
+    std::vector<double>GEN_Mom_pt;
+    std::vector<double>GEN_Mom_eta;
+    std::vector<double>GEN_Mom_phi;
+    std::vector<double>GEN_Mom_rapidity;
+    std::vector<double>GEN_Mom_mass;
+    std::vector<int>GEN_Mom_status;
 
-std::vector<int>GEN_Dau_barcode;
-std::vector<int>GEN_Dau_ID;
-std::vector<double>GEN_Dau_pt;
-std::vector<double>GEN_Dau_eta;
-std::vector<double>GEN_Dau_phi;
-std::vector<double>GEN_Dau_rapidity;
-std::vector<double>GEN_Dau_mass;
-std::vector<int>GEN_Dau_status;
-*/
-TTree * _mytree;
-TTree * _MMGtree;
+    std::vector<int>GEN_Dau_ID;
+    std::vector<double>GEN_Dau_pt;
+    std::vector<double>GEN_Dau_eta;
+    std::vector<double>GEN_Dau_phi;
+    std::vector<double>GEN_Dau_rapidity;
+    std::vector<double>GEN_Dau_mass;
+    std::vector<int>GEN_Dau_status;
+    */
+    TTree * _mytree;
+    TTree * _MMGtree;
 
-
+     int _nEvent, _nRun, _nLumi;
 
 // cocuktan alinan
 // -------------------------
 // GEN level information
 // -------------------------
 // Event variables
-//int GENfinalState;
-//bool passedFiducialSelection;
 std::vector<double> GENmu_pt; 
 std::vector<double> GENmu_eta; 
 std::vector<double> GENmu_phi; 
 std::vector<double> GENmu_mass; 
+std::vector<double> GENmu_rapidity; 
 std::vector<int>    GENmu_id; 
 std::vector<int>    GENmu_status; 
 std::vector<int>    GENmu_MomId; 
 std::vector<int>    GENmu_MomMomId;
+std::vector<int>    GENmu_barcode;
+std::vector<int>    GENmu_Mom_barcode;
+std::vector<int>    GENmu_MomMom_barcode; 
 
-std::vector<int>    GENups_DaughtersId;
-std::vector<double> GENups_Daughter_mupt;
-std::vector<double> GENups_Daughter_mueta;
-std::vector<double> GENups_Daughter_muphi;
-std::vector<double> GENups_Daughter_mumass;
-std::vector<double> GENups_Daughter_mustatus;
-std::vector<int>    GENups_Daughter_muid;
+
+std::vector<std::vector<int>> GENups_DaughtersId;
+std::vector<std::vector<double>> GENups_Daughter_mupt;
+std::vector<std::vector<double>> GENups_Daughter_mueta;
+std::vector<std::vector<double>> GENups_Daughter_murapidity;
+std::vector<std::vector<double>> GENups_Daughter_muphi;
+std::vector<std::vector<double>> GENups_Daughter_mumass;
+std::vector<std::vector<double>> GENups_Daughter_mustatus;
+std::vector<std::vector<int>>    GENups_Daughter_muid;
+std::vector<std::vector<int>>    GENups_Daughter_barcode;
+std::vector<int>    GENups_barcode;
 std::vector<int>    GENups_MomId;
+std::vector<int>    GENups_Mom_barcode;
 std::vector<double> GENups_pt;
 std::vector<double> GENups_eta;
 std::vector<double> GENups_y;
 std::vector<double> GENups_phi;
 std::vector<double> GENups_mass;
+std::vector<int> GENups_ID;
+std::vector<int> GENups_NDaughters;
 
 //end
   
     const edm::ParameterSet&  conf;
-    edm::EDGetTokenT<edm::View<reco::GenParticle> > genParticlesToken_;
+    //edm::EDGetTokenT<edm::View<reco::GenParticle> > genParticlesToken_;
     edm::EDGetTokenT<vector<reco::GenParticle> > genParticleToken_;
+    //edm::EDGetTokenT<vector<HepMC::GenParticle> > genParticleToken2_;
 
 };
 
@@ -211,7 +228,7 @@ genParticleToken_ = mayConsume<vector<reco::GenParticle>>(iConfig.getParameter<e
     
     edm::Service<TFileService> fs ;
     _mytree  = fs->make < TTree >("gen_tree","gen tree");
-    _MMGtree  = fs->make < TTree >("gen_tree2","gen tree2");
+    _MMGtree  = fs->make < TTree >("Total_events","total events");
 
 }
 
@@ -233,10 +250,15 @@ GenAnalyzer::~GenAnalyzer()
 void GenAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
+   
+   FillEvent(iEvent, iSetup);
+   LogDebug("") << "After FillEvent"; 
+   _MMGtree->Fill();
+
    FillTruth(iEvent, iSetup);
+   LogDebug("") << "After FillTruth"; 
    //Tree fill
    _mytree->Fill();
-   _MMGtree->Fill();
    
    //Clear vectorss
    GEN_Nmother.clear();
@@ -250,15 +272,16 @@ void GenAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
    GEN_status.clear();
    GEN_Daughter_pdgID.clear();
    GEN_Mother_pdgID.clear();
-   /*GEN_Mom_barcode->clear();
-   GEN_Mom_ID->clear();
+   GEN_Mom_barcode.clear();
+   GEN_Dau_barcode.clear();
+   GEN_barcode.clear();
+   /*GEN_Mom_ID->clear();
    GEN_Mom_pt->clear();
    GEN_Mom_eta->clear();
    GEN_Mom_phi->clear();
    GEN_Mom_rapidity->clear();
    GEN_Mom_mass->clear();
    GEN_Mom_status->clear();
-   GEN_Dau_barcode->clear();
    GEN_Dau_ID->clear();
    GEN_Dau_pt->clear();
    GEN_Dau_eta->clear();
@@ -276,19 +299,29 @@ GENmu_id.clear();
 GENmu_status.clear();
 GENmu_MomId.clear();
 GENmu_MomMomId.clear();
+GENmu_barcode.clear();
+GENmu_Mom_barcode.clear();
+GENmu_MomMom_barcode.clear();
+
 GENups_DaughtersId.clear();
 GENups_Daughter_mupt.clear();
 GENups_Daughter_mueta.clear();
 GENups_Daughter_muphi.clear();
 GENups_Daughter_mumass.clear();
+GENups_Daughter_murapidity.clear();
 GENups_Daughter_mustatus.clear();
+GENups_Daughter_muid.clear();
+GENups_Daughter_barcode.clear();
+GENups_barcode.clear();
 GENups_MomId.clear();
+GENups_Mom_barcode.clear();
 GENups_pt.clear();
 GENups_eta.clear();
 GENups_y.clear();
 GENups_phi.clear();
 GENups_mass.clear();
-
+GENups_ID.clear();
+GENups_NDaughters.clear();
 }
 
 
@@ -302,11 +335,15 @@ GenAnalyzer::beginJob()
     //TLorentzVector gen_dimuon_p4;
     //TLorentzVector gen_mu1_p4;
     //TLorentzVector gen_mu2_p4;
-    
+
+_MMGtree->Branch("nEvent",&_nEvent,"nEvent/I");
+_MMGtree->Branch("nRun",&_nRun,"nRun/I");
+_MMGtree->Branch("nLumi",&_nLumi,"nLumi/I");
+
 _mytree->Branch("GENfinalState",&GENfinalState,"GENfinalState/I");
 _mytree->Branch("passedFiducialSelection",&passedFiducialSelection,"passedFiducialSelection/O");
 
-//_mytree->Branch("GEN_barcode",&GEN_barcode);
+_mytree->Branch("GEN_barcode",&GEN_barcode);
 
 _mytree->Branch("GEN_Nmother",&GEN_Nmother);
 _mytree->Branch("GEN_Ndaughter",&GEN_Ndaughter);
@@ -320,8 +357,9 @@ _mytree->Branch("GEN_status",&GEN_status);
 _mytree->Branch("GEN_Daughter_pdgID",&GEN_Daughter_pdgID);
 _mytree->Branch("GEN_Mother_pdgID",&GEN_Mother_pdgID);
 
-/*_mytree->Branch("GEN_Mom_barcode",&GEN_Mom_barcode);
-_mytree->Branch("GEN_Mom_ID",&GEN_Mom_ID);
+_mytree->Branch("GEN_Mom_barcode",&GEN_Mom_barcode);
+_mytree->Branch("GEN_Dau_barcode",&GEN_Dau_barcode);
+/*_mytree->Branch("GEN_Mom_ID",&GEN_Mom_ID);
 _mytree->Branch("GEN_Mom_pt",&GEN_Mom_pt);
 _mytree->Branch("GEN_Mom_eta",&GEN_Mom_eta);
 _mytree->Branch("GEN_Mom_phi",&GEN_Mom_phi);
@@ -329,7 +367,6 @@ _mytree->Branch("GEN_Mom_rapidity",&GEN_Mom_rapidity);
 _mytree->Branch("GEN_Mom_mass",&GEN_Mom_mass);
 _mytree->Branch("GEN_Mom_status",&GEN_Mom_status);
 
-_mytree->Branch("GEN_Dau_barcode",&GEN_Dau_barcode);
 _mytree->Branch("GEN_Dau_ID",&GEN_Dau_ID);
 _mytree->Branch("GEN_Dau_pt",&GEN_Dau_pt);
 _mytree->Branch("GEN_Dau_eta",&GEN_Dau_eta);
@@ -339,26 +376,33 @@ _mytree->Branch("GEN_Dau_mass",&GEN_Dau_mass);
 _mytree->Branch("GEN_Dau_status",&GEN_Dau_status);
 */
 
-_MMGtree->Branch("GENmu_pt",&GENmu_pt);
-_MMGtree->Branch("GENmu_eta",&GENmu_eta);
-_MMGtree->Branch("GENmu_phi",&GENmu_phi);
-_MMGtree->Branch("GENmu_mass",&GENmu_mass);
-_MMGtree->Branch("GENmu_id",&GENmu_id);
-_MMGtree->Branch("GENmu_status",&GENmu_status);
-_MMGtree->Branch("GENmu_MomId",&GENmu_MomId);
-_MMGtree->Branch("GENmu_MomMomId",&GENmu_MomMomId);
-_MMGtree->Branch("GENups_DaughtersId",&GENups_DaughtersId);
-_MMGtree->Branch("GENups_Daughter_mupt",&GENups_Daughter_mupt);
-_MMGtree->Branch("GENups_Daughter_mueta",&GENups_Daughter_mueta);
-_MMGtree->Branch("GENups_Daughter_muphi",&GENups_Daughter_muphi);
-_MMGtree->Branch("GENups_Daughter_mumass",&GENups_Daughter_mumass);
-_MMGtree->Branch("GENups_Daughter_mustatus",&GENups_Daughter_mustatus);
-_MMGtree->Branch("GENups_MomId",&GENups_MomId);
-_MMGtree->Branch("GENups_pt",&GENups_pt);
-_MMGtree->Branch("GENups_eta",&GENups_eta);
-_MMGtree->Branch("GENups_y",&GENups_y);
-_MMGtree->Branch("GENups_phi",&GENups_phi);
-_MMGtree->Branch("GENups_mass",&GENups_mass);
+_mytree->Branch("GENmu_pt",&GENmu_pt);
+_mytree->Branch("GENmu_eta",&GENmu_eta);
+_mytree->Branch("GENmu_phi",&GENmu_phi);
+_mytree->Branch("GENmu_mass",&GENmu_mass);
+_mytree->Branch("GENmu_id",&GENmu_id);
+_mytree->Branch("GENmu_status",&GENmu_status);
+_mytree->Branch("GENmu_MomId",&GENmu_MomId);
+_mytree->Branch("GENmu_MomMomId",&GENmu_MomMomId);
+_mytree->Branch("GENups_DaughtersId",&GENups_DaughtersId);
+_mytree->Branch("GENups_Daughter_mupt",&GENups_Daughter_mupt);
+_mytree->Branch("GENups_Daughter_mueta",&GENups_Daughter_mueta);
+_mytree->Branch("GENups_Daughter_murapidity",&GENups_Daughter_murapidity);
+_mytree->Branch("GENups_Daughter_muphi",&GENups_Daughter_muphi);
+_mytree->Branch("GENups_Daughter_mumass",&GENups_Daughter_mumass);
+_mytree->Branch("GENups_Daughter_muid",&GENups_Daughter_muid);
+_mytree->Branch("GENups_Daughter_mustatus",&GENups_Daughter_mustatus);
+_mytree->Branch("GENups_Daughter_barcode",&GENups_Daughter_barcode);
+_mytree->Branch("GENups_barcode",&GENups_barcode);
+_mytree->Branch("GENups_MomId",&GENups_MomId);
+_mytree->Branch("GENups_Mom_barcode",&GENups_Mom_barcode);
+_mytree->Branch("GENups_pt",&GENups_pt);
+_mytree->Branch("GENups_eta",&GENups_eta);
+_mytree->Branch("GENups_y",&GENups_y);
+_mytree->Branch("GENups_phi",&GENups_phi);
+_mytree->Branch("GENups_mass",&GENups_mass);
+_mytree->Branch("GENups_ID",&GENups_ID);
+_mytree->Branch("GENups_NDaughters",&GENups_NDaughters);
 
     
     
@@ -387,23 +431,32 @@ GenAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //desc.addUntracked<edm::InputTag>("tracks","ctfWithMaterialTracks");
   //descriptions.addDefault(desc);
 }
+void GenAnalyzer::FillEvent(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+{
+    _nEvent = iEvent.id().event();
+    _nRun   = iEvent.id().run();
+    _nLumi  = iEvent.luminosityBlock();
 
+
+}
 void GenAnalyzer::FillTruth(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
+    LogDebug("") << "GenAnalyzer::FillTruth"; 
+
 edm::Handle<vector<reco::GenParticle> > genCandidatesCollection;
 iEvent.getByToken(genParticleToken_, genCandidatesCollection);
 
-    
 // ----------------------------
-//   //      Loop on particles
-//     // ----------------------------
-for( auto p = genCandidatesCollection->begin();p != genCandidatesCollection->end(); ++ p ) {
+////      Loop on particles
+//// ----------------------------
+int barcode=0;
 
-if(verbose) {
-    cout << "Status pdgid = " << fabs(p->pdgId()) << " status = "<< p->status()  << " Pt = "<< p->pt() << " Eta = " << p->eta() << "Numb of Mother="<< p->numberOfMothers()<< "Numb of Daughters="<< p->numberOfDaughters()<< endl;
-}
+for( auto p = genCandidatesCollection->begin(); p != genCandidatesCollection->end(); ++ p ) {
+barcode++;
+//if(verbose) cout << "gen part pdgid =   "  << fabs(p->pdgId()) <<     " status = "     << p->status()  <<   "    Mass =    "    << p->mass() <<    "     Pt = "  << p->pt() <<   "    Eta = "  <<  p->eta()  <<   "      Numb of Mothers  =  "  <<   p->numberOfMothers()  <<   "    Numb of Daughters=   "  <<   p->numberOfDaughters() << endl;
+
 ///particle info
-//GEN_barcode->push_back(p->barcode());
+GEN_barcode.push_back(barcode);
 GEN_pdgID.push_back(p->pdgId());
 GEN_pt.push_back(p->pt());
 GEN_eta.push_back(p->eta());
@@ -417,36 +470,55 @@ int Ndaughters =p->numberOfDaughters();
 GEN_Nmother.push_back(Nmothers);
 GEN_Ndaughter.push_back(Ndaughters);
 std::vector<int> Temp_MotherpdgID,Temp_DaughterpdgID;
-
+std::vector<int> Temp_GENups_DaughtersId;
+std::vector<double> Temp_GENups_Daughter_mupt;
+std::vector<double> Temp_GENups_Daughter_mueta;
+std::vector<double> Temp_GENups_Daughter_murapidity;
+std::vector<double> Temp_GENups_Daughter_muphi;
+std::vector<double> Temp_GENups_Daughter_mumass;
+std::vector<double> Temp_GENups_Daughter_mustatus;
+std::vector<int>    Temp_GENups_Daughter_muid;
+std::vector<int> Temp_GENups_Daughter_barcode;
+std::vector<int> Temp_GEN_Mom_barcode;
+std::vector<int> Temp_GEN_Dau_barcode;
 if(Nmothers>0) {
    for(int i=0;i<Nmothers;i++){
    Temp_MotherpdgID.push_back(p->mother(i)->pdgId());
+   //Temp_GEN_Mom_barcode.push_back(p->mother(i)->barcode());
    }
 
 GEN_Mother_pdgID.push_back(Temp_MotherpdgID);
+
+//GEN_Mom_barcode->push_back(Temp_GEN_Mom_barcode);
 }
 if(Ndaughters>0) {
    for(int i=0;i<Ndaughters;i++){
    Temp_DaughterpdgID.push_back(p->daughter(i)->pdgId());
+ //  Temp_GEN_Dau_barcode.push_back(p->daughter(i)->barcode());
    }
 GEN_Daughter_pdgID.push_back(Temp_DaughterpdgID);
+//GEN_Dau_barcode->push_back(Temp_GEN_Dau_barcode);
 }
 
-Temp_MotherpdgID.clear();
-Temp_DaughterpdgID.clear();
+    Temp_MotherpdgID.clear();
+  //  Temp_GEN_Mom_barcode.clear();
+    Temp_DaughterpdgID.clear();
+ //   Temp_GEN_Dau_barcode.clear();
 
-//Muhammad Branches
-    if(Nmothers>0 && Ndaughters>0){
-         const reco::Candidate  *Mom = p->mother(0);
-      if(Mom->numberOfMothers()>0){   
-         const reco::Candidate  *GrandMom = Mom->mother(0);
+    if(Nmothers>0){
+        const reco::Candidate  *Mom = p->mother(0);
+      
+        if(Mom->numberOfMothers()>0){   
+            const reco::Candidate  *GrandMom = Mom->mother(0);
+
         if (abs(p->pdgId())==13) {        //if it is muon 
 
-        //if (!(p->status()==1)) continue; // only allow status 1 gen muons,	particle not decayed or fragmented, represents the final state as given by the generator
-        if (!(Mom->pdgId()==553)) continue;  // Upsilon =553
+        if (!(p->status()==1)) continue; // only allow status 1 gen muons,	particle not decayed or fragmented, represents the final state as given by the generator
+        if (!(Mom->pdgId()==443 && Mom->status()==2)) continue;  // Upsilon =553
    
-         cout<<"found a gen muon: id "<<p->pdgId()<<" pt: "<<p->pt()<<" eta: "<<p->eta()<<endl;
-           GENmu_id.push_back(p->pdgId() );
+         if(verbose) cout<<"found a GEN  MUON ID : "<< p->pdgId() <<"GEN MUON status :"<<  p->status() << "GEN MUON mass: "<< p->mass() << " GEN MUON pt: " << p->pt() <<" GEN MUON eta: "<< p->eta() <<endl;
+           
+           GENmu_id.push_back(p->pdgId());
            GENmu_status.push_back(p->status());
            GENmu_pt.push_back(p->pt());
            GENmu_eta.push_back(p->eta());
@@ -454,43 +526,73 @@ Temp_DaughterpdgID.clear();
            GENmu_mass.push_back(p->mass());
            GENmu_MomId.push_back(Mom->pdgId());
            GENmu_MomMomId.push_back(GrandMom->pdgId()); 
+           GENmu_barcode.push_back(barcode);
+           //GENmu_Mom_barcode.push_back(Mom->barcode());
+           //GENmu_MomMom_barcode.push_back(GrandMom->barcode()); 
              } // end Gen muons
-
             if (verbose) cout<<"p id : "<<p->pdgId() << " status: "<<p->status()<<endl;
 
-            if ((p->pdgId()==553)  ) {
+            if ((p->pdgId()==443) && (p->status()==2)) {
             const reco::Candidate *ups_dau0=p->daughter(0);            
             int ups_dauId = fabs(ups_dau0->pdgId());
-            if (verbose) cout<<"Ups daughter : "<<ups_dauId<<endl;
+            if (verbose) cout<<"Ups daughter pdg ID : "<< ups_dauId<< "Ups pdg ID = " << p->pdgId()<< "Ups status = " << p->status() <<endl;
 
             int ndau = p->numberOfDaughters();
-            if (verbose) cout<<"Ups daughter size: "<<ndau<<endl;
-
+            if (verbose) cout<<" Ups daughter size: "<< ndau <<endl;
+            GENups_NDaughters.push_back(ndau); 
                 for (int d=0; d<ndau; d++) {
                     const reco::Candidate *ups_dau=p->daughter(d);
-                    if (fabs(ups_dau->pdgId()) == 13) { //if daughter of ups is muon
+                    if (fabs(ups_dau->pdgId()) == 13 && (ups_dau->status()==1)) 
+                    { //if daughter of ups is muon
                         ups_dauId = fabs(ups_dau->pdgId());
-                        if (verbose) cout<<"ups Dau: "<<d<<" id: "<<fabs(ups_dau->pdgId())<<" status: "<<ups_dau->status() <<endl;
-                        GENups_DaughtersId.push_back(fabs(ups_dau->pdgId()));
-                        GENups_Daughter_mupt.push_back(ups_dau->pt());
-                        GENups_Daughter_mueta.push_back(ups_dau->eta());
-                        GENups_Daughter_muphi.push_back(ups_dau->rapidity());
-                        GENups_Daughter_mumass.push_back(ups_dau->phi());
-                        GENups_Daughter_mustatus.push_back(ups_dau->status());
-                        GENups_Daughter_muid.push_back(ups_dau->mass());
+                        if (verbose) cout<<"ups Dau : "<< d <<" id : "<< fabs(ups_dau->pdgId()) <<" ups daughter status: "<< ups_dau->status() << endl;
+                        
+                        Temp_GENups_DaughtersId.push_back(fabs(ups_dau->pdgId()));
+                        Temp_GENups_Daughter_mupt.push_back(ups_dau->pt());
+                        Temp_GENups_Daughter_mueta.push_back(ups_dau->eta());
+                        Temp_GENups_Daughter_murapidity.push_back(ups_dau->rapidity());
+                        Temp_GENups_Daughter_muphi.push_back(ups_dau->phi());
+                        Temp_GENups_Daughter_mustatus.push_back(ups_dau->status());
+                        Temp_GENups_Daughter_mumass.push_back(ups_dau->mass());
+                        Temp_GENups_Daughter_muid.push_back(ups_dau->pdgId());
+                       // Temp_GENups_Daughter_barcode.push_back(ups_dau->barcode());
                     }
-                } //daughter loop
-
+                } //upsilon daughter loop
+                        GENups_DaughtersId.push_back(Temp_GENups_DaughtersId);
+                        GENups_Daughter_mupt.push_back(Temp_GENups_Daughter_mupt);
+                        GENups_Daughter_mueta.push_back(Temp_GENups_Daughter_mueta);
+                        GENups_Daughter_murapidity.push_back(Temp_GENups_Daughter_murapidity);
+                        GENups_Daughter_muphi.push_back(Temp_GENups_Daughter_muphi);
+                        GENups_Daughter_mustatus.push_back(Temp_GENups_Daughter_mustatus);
+                        GENups_Daughter_mumass.push_back(Temp_GENups_Daughter_mumass);
+                        GENups_Daughter_muid.push_back(Temp_GENups_Daughter_muid);
+                        //GENups_Daughter_barcode.push_back(Temp_GENups_Daughter_barcode);
+            
+                        Temp_GENups_DaughtersId.clear();
+                        Temp_GENups_Daughter_mupt.clear();
+                        Temp_GENups_Daughter_mueta.clear();
+                        Temp_GENups_Daughter_murapidity.clear();
+                        Temp_GENups_Daughter_muphi.clear();
+                        Temp_GENups_Daughter_mustatus.clear();
+                        Temp_GENups_Daughter_mumass.clear();
+                        Temp_GENups_Daughter_muid.clear();
+                        //Temp_GENups_Daughter_barcode.clear();
+                            
+            
+            
+            
             GENups_MomId.push_back(Mom->pdgId());                
+            //GENups_Mom_barcode.push_back(Mom->barcode());                
             GENups_pt.push_back(p->pt());
             GENups_eta.push_back(p->eta());
             GENups_y.push_back(p->rapidity());
             GENups_phi.push_back(p->phi());
             GENups_mass.push_back(p->mass());
-                } // Upsilon ifi
-            //end Muhammad branches
+            GENups_ID.push_back(p->pdgId());
+            GENups_barcode.push_back(barcode);
+                } // Upsilon loop
             } //if Gndmother>0
-        }//if mother/daughter>0
+        }//if mother>0
 
     } // particle loop
 
