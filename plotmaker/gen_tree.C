@@ -138,29 +138,6 @@ void gen_tree::Loop()
      std::vector<TLorentzVector> mucollection;
      TLorentzVector temporarymuon;
 
-     /*muondan git*/
-     /*
-     for (size_t j = 0; j < GENmu_pt->size(); j++)
-     {  
-         if(GENmu_status->at(j)!= 1) continue;  // status 1 is final one..
-
-        for (size_t k = j+1; k < GENmu_pt->size(); k++)
-        {
-              if(GENmu_status->at(k)!= 1) continue;  // status 1 is final one..
-            //std::cout<<"mu1 :"<<GENmu_mass->at(j)<<" mu2 :"<<GENmu_mass->at(k)<<std::endl;
-
-            TLorentzVector Jpsi;
-
-            mu1.SetPtEtaPhiM(GENmu_pt->at(j),GENmu_eta->at(j),GENmu_phi->at(j),GENmu_mass->at(j));
-            mu2.SetPtEtaPhiM(GENmu_pt->at(k),GENmu_eta->at(k),GENmu_phi->at(k),GENmu_mass->at(k));
-            Jpsi= mu1+mu2;
-
-            std::cout<<"Jpsimass :"<<Jpsi.M()<<" 1.nin anasi: "<< GENmu_MomId->at(j)<<" 2.nin anasi: "<< GENmu_MomId->at(k) <<std::endl;
-        }
-
-     }*/
-
-/// Upsilon dongusu
 
      for (size_t j = 0; j < GENups_ID->size(); j++)
      {  
@@ -172,17 +149,17 @@ void gen_tree::Loop()
             {
               //if((*GENups_barcode)[j] == (*GENups_barcode)[k]) continue;
               if(j== k) continue;
-          //  std::cout<<"PASSED :"<<__LINE__<<std::endl;
-            TLorentzVector J12, J34 , J1,J2 ,DoubleJpsi, Fourmu;
+              //std::cout<<"PASSED :"<<__LINE__<<std::endl;
+              TLorentzVector J12, J34 , J1,J2 ,DoubleJpsi, Fourmu;
               //Muons pT cuts
               //if( (*GENups_Daughter_mupt)[j][0]<2.0 || (*GENups_Daughter_mupt)[j][1]<2.0 || (*GENups_Daughter_mupt)[k][0]<2.0 || (*GENups_Daughter_mupt)[k][1]<2.0) continue;
-          //std::cout<<" pt : "<< (*GENups_Daughter_mupt)[j][0] <<" pt : "<< (*GENups_Daughter_mupt)[j][1]<<" pt : "<< (*GENups_Daughter_mupt)[k][0]<<" pt : "<< (*GENups_Daughter_mupt)[k][1]<<std::endl;;
-            //std::cout<<"PASSED :"<<__LINE__<<std::endl;
-             //Muons Eta cuts 
+              //std::cout<<" pt : "<< (*GENups_Daughter_mupt)[j][0] <<" pt : "<< (*GENups_Daughter_mupt)[j][1]<<" pt : "<< (*GENups_Daughter_mupt)[k][0]<<" pt : "<< (*GENups_Daughter_mupt)[k][1]<<std::endl;;
+              //std::cout<<"PASSED :"<<__LINE__<<std::endl;
+              //Muons Eta cuts 
               //if( fabs((*GENups_Daughter_mueta)[j][0])>2.4 || fabs((*GENups_Daughter_mueta)[j][1])>2.4 || fabs((*GENups_Daughter_mueta)[k][0])>2.4 || fabs((*GENups_Daughter_mueta)[k][1])>2.4)continue;;
-          //  std::cout<<"PASSED :"<<__LINE__<<std::endl;
-         //   std::cout<<"test :"<<(*GENups_Daughter_mupt)[k][0]<<std::endl;
-            // Jpsi1
+              //std::cout<<"PASSED :"<<__LINE__<<std::endl;
+             //std::cout<<"test :"<<(*GENups_Daughter_mupt)[k][0]<<std::endl;
+             // Jpsi1
             mu1.SetPtEtaPhiM((*GENups_Daughter_mupt)[j][0],(*GENups_Daughter_mueta)[j][0],(*GENups_Daughter_muphi)[j][0],(*GENups_Daughter_mumass)[j][0]);
             mu2.SetPtEtaPhiM((*GENups_Daughter_mupt)[j][1],(*GENups_Daughter_mueta)[j][1],(*GENups_Daughter_muphi)[j][1],(*GENups_Daughter_mumass)[j][1]);
             // Jpsi2
@@ -191,8 +168,8 @@ void gen_tree::Loop()
             
             J12= mu1+mu2;
             J34= mu3+mu4;
-           mu12=J12;
-           mu34=J34;
+            mu12=J12;
+            mu34=J34;
           
             // Upsilon1
             J1.SetPtEtaPhiM((*GENups_pt)[j],(*GENups_eta)[j],(*GENups_phi)[j],(*GENups_mass)[j]  );
@@ -200,7 +177,7 @@ void gen_tree::Loop()
             DoubleJpsi = J1+ J2;
             Fourmu =mu1+mu2+mu3+mu4;
 
-          //  std::cout<<"Jpsimass :"<<Fourmu.M()<<std::endl;
+           //std::cout<<"Jpsimass :"<<Fourmu.M()<<std::endl;
 
             /*4mu*/
             
@@ -241,7 +218,6 @@ void gen_tree::Loop()
               mu4_eta    = mu4.Eta();
               mu4_phi    = mu4.Phi();
               mu4_y      = mu4.Y();
-FourMu_tree->Fill();
             }
             
         }
@@ -250,6 +226,7 @@ FourMu_tree->Fill();
 
   
   
+FourMu_tree->Fill();
    } //dongu
 
    FourMu_tree->Write();

@@ -35,6 +35,6 @@ chain->AddFile("root://cmsxrootd.fnal.gov//store/user/cdozen/FourMuon_Analysis/D
 
 gen_tree* a =new gen_tree(chain);
 
- //a->Loop();
+ a->Loop();
     
 }
