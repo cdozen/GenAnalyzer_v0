@@ -1,5 +1,12 @@
 # GenAnalzer
-Gen level Ntuple producer
+Gen level Ntuple producer for Double Jpsi
+
+cmsrel CMSSW_10_2_5 
+cd CMSSW_10_2_5/src
+cmsenv
+git clone https://github.com/cdozen/GenAnalzer.git
+
+scram b -j24
 
 main code :
 
