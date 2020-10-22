@@ -32,7 +32,7 @@ void gen_tree::Loop()
 //by  b_branchname->GetEntry(ientry); //read only this branch
    if (fChain == 0) return;
 
-   Long64_t nentries = fChain->GetEntries();
+   Long64_t nentries = fChain->GetEntriesFast();
 
    Long64_t nbytes = 0, nb = 0;
 
@@ -218,15 +218,16 @@ void gen_tree::Loop()
               mu4_eta    = mu4.Eta();
               mu4_phi    = mu4.Phi();
               mu4_y      = mu4.Y();
+                
             }
             
         }
 
      }
+              FourMu_tree->Fill();
 
   
   
-FourMu_tree->Fill();
    } //dongu
 
    FourMu_tree->Write();
