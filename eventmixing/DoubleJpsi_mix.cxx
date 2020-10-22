@@ -93,33 +93,32 @@ void DoubleJpsi_mix(){
 		//4 muon combination 
 		FourMu=mu1+mu2+mu3+mu4;
 		//hMFourMu->Fill(FourMu.M());
-        hMFourMu->Fill(FourMu.M()-J12.M()-J34.M()+2*3.096);
+                hMFourMu->Fill(FourMu.M()-J12.M()-J34.M()+2*3.096);
 		//Double jpsi comnbonation
 		DoubleJpsi=J1+J2;
 		//hMDoubleJpsi->Fill(DoubleJpsi.M());
 		hMDoubleJpsi->Fill(DoubleJpsi.M()-J12.M()-J34.M()+2*3.096);
 		//Fill the branches
 		
-	}//event dongusundeki okuma isleri bitti. event by event doldurduk 
+	}// event loop  
 
 	cout<<"--->"<<endl;
-//combination of the mu12 and mu34 vectors //bu vektorleri kullanarak kombinasyon alicaz 
-int num =mu34_p4_vector.size();
+//combination of the mu12 and mu34 vectors
+        int num =mu34_p4_vector.size();
 	for (unsigned j=0; j<mu34_p4_vector.size();j++){ 
-		for (unsigned k=0; k<mu12_p4_vector.size();k++){
+	        for (unsigned k=0; k<mu12_p4_vector.size();k++){
 			if (j==k) continue;
-			//fiziksel yontem, old deltaR method. 
+			// old deltaR method. 
 			if ( fabs(mu12_p4_vector[k].Vect().DeltaR( mu12_p4_vector[j].Vect())) > 0.1) continue;
 			//if ( fabs(mu12_p4_vector[k].Vect().DeltaR( mu12_p4_vector[j].Vect())) > 0.15) continue;
 			//if ( fabs(mu12_p4_vector[k].Vect().DeltaR( mu12_p4_vector[j].Vect())) > 0.2) continue;
 			//if ( fabs(mu12_p4_vector[k].Vect().DeltaR( mu12_p4_vector[j].Vect())) > 0.3) continue;
-//Double_t DeltaPhi =(fabs(mu12_p4_vector[k].Phi() - mu12_p4_vector[j].Phi()));
-//             Double_t DeltaY =(fabs(mu12_p4_vector[k].Rapidity() - mu12_p4_vector[j].Rapidity()));
-//             Double_t DeltaR=sqrt((DeltaPhi*DeltaPhi)+ (DeltaY*DeltaY));
-//             if (DeltaR>0.3) continue;
+                        //Double_t DeltaPhi =(fabs(mu12_p4_vector[k].Phi() - mu12_p4_vector[j].Phi()));
+                        //Double_t DeltaY =(fabs(mu12_p4_vector[k].Rapidity() - mu12_p4_vector[j].Rapidity()));
+                        //Double_t DeltaR=sqrt((DeltaPhi*DeltaPhi)+ (DeltaY*DeltaY));
+                        //if (DeltaR>0.3) continue;
 			
-//mixing yontem mu12 ile mu34 mix et. 
-			 cout<<"\r Inside loop :"<< j <<"/"<<num<<flush;
+			cout<<"\r Inside loop :"<< j <<"/"<<num<<flush;
 			TLorentzVector mixFourMu;
 			mixFourMu=mu12_p4_vector[k]+mu34_p4_vector[j];
 			//hmix->Fill(mixFourMu.M());
@@ -134,8 +133,8 @@ int num =mu34_p4_vector.size();
 	hmix->SetLineColor(kRed);
 	hmix->Draw("e1");
 
-	cmix->SaveAs("plots_01_etapt_butgenfilter/cmix.png");
-    c4mu->cd();
+	cmix->SaveAs("cmix.png");
+        c4mu->cd();
 	hMFourMu->SetMarkerColor(kBlue);
 	hMFourMu->SetLineColor(kBlue);
 	hMFourMu->Draw("e1");
@@ -144,10 +143,10 @@ int num =mu34_p4_vector.size();
 	hmix->SetMarkerColor(kRed);
 	hmix->SetLineColor(kRed);
 	hmix->Draw("e1same");
-    c4mu->SaveAs("plots_01_etapt_butgenfilter/c4mu.png");
+    c4mu->SaveAs("c4mu.png");
 	c2j->cd();
 	hMDoubleJpsi->Draw("e1");
-        c2j->SaveAs("plots_01_etapt_butgenfilter/c2j.png");
+        c2j->SaveAs("c2j.png");
 
 }
 
