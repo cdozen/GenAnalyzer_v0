@@ -15,8 +15,8 @@
 //         Created:  Sat, 11 Jul 2020 11:06:05 GMT
 //
 //
-///////16 ekim// genanalyzer kodunun en son duzgun hali budur candan bunu kullan... saat 00:26.. 
-//ups_daughthersid leri ikili vectore doldur...
+///////16 October// genanalyzer code , latest version -- 00:26.. 
+//ups_daughthers id filled in double vectors...
 //
 //
 //
