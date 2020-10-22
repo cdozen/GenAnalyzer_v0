@@ -2,21 +2,24 @@
 Gen level Ntuple producer for Double Jpsi
 
 cmsrel CMSSW_10_2_5 
+
 cd CMSSW_10_2_5/src
+
 cmsenv
+
 git clone https://github.com/cdozen/GenAnalzer.git
 
 scram b -j24
 
 main code :
 
-plugins/GenAnalyzer.cc 
+GenAnalzer/plugins/GenAnalyzer.cc 
 
 To run it locally:
 
 Add Gen Level dataset in 
 
-/test/GenAnalyzer_cfg.py 
+GenAnalzer/test/GenAnalyzer_cfg.py 
 
 run : 
 
