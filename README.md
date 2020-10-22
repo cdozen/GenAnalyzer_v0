@@ -1,4 +1,4 @@
-# GenAnalzer
+# GenAnalzer_step1
 Gen level Ntuple producer for Double Jpsi
 
 cmsrel CMSSW_10_2_5 
@@ -58,3 +58,33 @@ inputDatasets = [Datasetnames....]
 Submit jobs:
 
 ./multicrab_MC --crabCmd=submit
+
+
+plotmaker
+# GenAnalyzer_step2
+Gen level plotmaker
+
+to run the plotmaker code:
+
+add ntuples in main.cpp
+
+add cuts (pt/eta,etc..) in gen_tree.C
+
+make
+
+./main.exe
+
+outputfile will be created..
+
+
+
+# GenAnalyzer_step3
+Gen level mixing
+
+to run the mixing code:
+
+add ntuples in
+
+root -l 
+
+plots will be created.
