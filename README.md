@@ -60,8 +60,10 @@ Submit jobs:
 ./multicrab_MC --crabCmd=submit
 
 
-plotmaker
+plotmaker branch:
+
 # GenAnalyzer_step2
+
 Gen level plotmaker
 
 to run the plotmaker code:
@@ -77,14 +79,20 @@ make
 outputfile will be created..
 
 
+eventmixing branch:
 
 # GenAnalyzer_step3
-Gen level mixing
 
-to run the mixing code:
+Gen level event mixing
 
-add ntuples in
+Add output root file from step2:
 
-root -l 
+in DoubleJpsi_mix.cxx
 
-plots will be created.
+run :
+
+root -l DoubleJpsi_mix.cxx
+
+it will create mass spectrum plots for Double Jpsi, 4Muon and mixing..
+
+halleluja..
