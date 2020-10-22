@@ -25,32 +25,33 @@ run :
 
 cmsRun GenAnalyzer_cfg.py
 
-Submit job to crab: 
+Submit jobs via crab: 
 
-for a single dataset : crab submit -c crabconfig_MC_jpsi.py
+1-for a single dataset : crab submit -c crabconfig_MC_jpsi.py
 
 Add dataset name:
 
-Line# 20
+L#20
+
 config.Data.inputDataset =' Datasetname....'
 
 Add output files path :
 
-Line #24 
+L#24 
 
 config.Data.outLFNDirBase = '/store/user/username/Folder/Subfolder2/'
 
-for multiple dataset:  multicrab_MC or multicrab_MCJJ
+2-for multiple dataset:  multicrab_MC or multicrab_MCJJ
 
 Add output files path :
 
-Line#95
+L#95
 
 config.Data.outLFNDirBase = '/store/user/username/Folder/Subfolder2/'
 
 Add Dataset name in 
 
-Line #102 
+L#102 
 
 inputDatasets = [Datasetnames....]
 
