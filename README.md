@@ -7,6 +7,10 @@ cd CMSSW_10_2_5/src
 
 cmsenv
 
+mkdir GenAnalyzer
+
+cd GenAnalyzer
+
 git clone https://github.com/cdozen/GenAnalzer.git
 
 scram b -j24
